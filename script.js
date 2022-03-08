@@ -5,33 +5,17 @@ import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm
 import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/loaders/3DMLoader.js'
 
-const definitionName = 'practice3.gh'
+const definitionName = '3d_iphone_case.gh'
 
 
 // Set up sliders
-const divide_slider = document.getElementById('divide')
-divide_slider.addEventListener('mouseup', onSliderChange, false)
-divide_slider.addEventListener('touchend', onSliderChange, false)
+const size_slider = document.getElementById('size')
+size_slider.addEventListener('mouseup', onSliderChange, false)
+size_slider.addEventListener('touchend', onSliderChange, false)
 
-const length_slider = document.getElementById('length')
-length_slider.addEventListener('mouseup', onSliderChange, false)
-length_slider.addEventListener('touchend', onSliderChange, false)
-
-const u_slider = document.getElementById('u')
-u_slider.addEventListener('mouseup', onSliderChange, false)
-u_slider.addEventListener('touchend', onSliderChange, false)
-
-const v_slider = document.getElementById('v')
-v_slider.addEventListener('mouseup', onSliderChange, false)
-v_slider.addEventListener('touchend', onSliderChange, false)
-
-const domain1_slider = document.getElementById('domain1')
-domain1_slider.addEventListener('mouseup', onSliderChange, false)
-domain1_slider.addEventListener('touchend', onSliderChange, false)
-
-const domain2_slider = document.getElementById('domain2')
-domain2_slider.addEventListener('mouseup', onSliderChange, false)
-domain2_slider.addEventListener('touchend', onSliderChange, false)
+const height_slider = document.getElementById('height')
+height_slider.addEventListener('mouseup', onSliderChange, false)
+height_slider.addEventListener('touchend', onSliderChange, false)
 
 
 const loader = new Rhino3dmLoader()
@@ -60,32 +44,17 @@ rhino3dm().then(async m => {
 async function compute() {
 
 
-    const param1 = new RhinoCompute.Grasshopper.DataTree("divide")
-    param1.append([0], [divide_slider.valueAsNumber])
+    const param1 = new RhinoCompute.Grasshopper.DataTree("size")
+    param1.append([0], [size_slider.valueAsNumber])
 
-    const param2 = new RhinoCompute.Grasshopper.DataTree("length")
-    param2.append([0], [length_slider.valueAsNumber])
+    const param2 = new RhinoCompute.Grasshopper.DataTree("height")
+    param2.append([0], [height_slider.valueAsNumber])
 
-    const param3 = new RhinoCompute.Grasshopper.DataTree("u")
-    param3.append([0], [u_slider.valueAsNumber])
-
-    const param4 = new RhinoCompute.Grasshopper.DataTree("v")
-    param4.append([0], [v_slider.valueAsNumber])
-
-    const param5 = new RhinoCompute.Grasshopper.DataTree("domain1")
-    param5.append([0], [domain1_slider.valueAsNumber])
-
-    const param6 = new RhinoCompute.Grasshopper.DataTree("domain2")
-    param6.append([0], [domain2_slider.valueAsNumber])
 
     // clear values
     const trees = []
     trees.push(param1)
     trees.push(param2)
-    trees.push(param3)
-    trees.push(param4)
-    trees.push(param5)
-    trees.push(param6)
 
     const res = await RhinoCompute.Grasshopper.evaluateDefinition(definition, trees)
 
